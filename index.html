@@ -7,49 +7,36 @@
   <title>El Filtro — Newsletter Tech Diario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-primary: #ffffff;
-      --bg-secondary: #f4f4f0;
-      --bg-header: #0a0a0a;
+      --bg-secondary: #f5f4f0;
+      --bg-header: #0d0d0d;
       --text-primary: #0f0f0f;
       --text-secondary: #555;
       --text-tertiary: #999;
       --accent: #22d3ee;
       --accent-dark: #0891b2;
-      --border: #e5e5e0;
+      --border: #e8e7e2;
       --shadow: rgba(0,0,0,0.06);
       --card-radius: 12px;
     }
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-primary: #111111;
-        --bg-secondary: #1a1a1a;
-        --bg-header: #000000;
-        --text-primary: #f0f0f0;
-        --text-secondary: #aaa;
-        --text-tertiary: #555;
-        --border: #2a2a2a;
-        --shadow: rgba(0,0,0,0.4);
-      }
-    }
-
     body.light-mode {
       --bg-primary: #ffffff;
-      --bg-secondary: #f4f4f0;
-      --bg-header: #0a0a0a;
+      --bg-secondary: #f5f4f0;
+      --bg-header: #0d0d0d;
       --text-primary: #0f0f0f;
       --text-secondary: #555;
       --text-tertiary: #999;
-      --border: #e5e5e0;
+      --border: #e8e7e2;
       --shadow: rgba(0,0,0,0.06);
     }
 
     body.dark-mode {
-      --bg-primary: #111111;
-      --bg-secondary: #1a1a1a;
+      --bg-primary: #151515;
+      --bg-secondary: #1c1c1c;
       --bg-header: #000000;
       --text-primary: #f0f0f0;
       --text-secondary: #aaa;
@@ -74,42 +61,44 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
     .header-inner {
       max-width: 1320px;
       margin: 0 auto;
       padding: 0 2rem;
-      height: 64px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
     .logo {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       gap: 0.75rem;
     }
 
     .logo h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       font-weight: 800;
       color: #fff;
       letter-spacing: -0.5px;
+      line-height: 1;
     }
 
     .logo-dot { color: var(--accent); }
 
     .logo-tag {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
       color: var(--accent);
       text-transform: uppercase;
-      letter-spacing: 2px;
-      font-family: 'Inter', monospace;
+      letter-spacing: 2.5px;
+      font-family: 'Inter', sans-serif;
+      margin-top: 2px;
     }
 
     .header-right {
@@ -119,16 +108,16 @@
     }
 
     .header-date {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.35);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
       text-transform: capitalize;
     }
 
     .icon-btn {
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.07);
       border: none;
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
@@ -139,9 +128,53 @@
       color: #fff;
     }
 
-    .icon-btn:hover { background: rgba(255,255,255,0.15); }
+    .icon-btn:hover { background: rgba(255,255,255,0.14); }
 
     .menu-btn { display: none; }
+
+    /* ── SUBNAV CATEGORÍAS ── */
+    .subnav {
+      background: var(--bg-header);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .subnav::-webkit-scrollbar { display: none; }
+
+    .subnav-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      gap: 0;
+    }
+
+    .subnav-item {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.3);
+      padding: 0.55rem 0.875rem;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.15s;
+      user-select: none;
+    }
+
+    .subnav-item.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .subnav-item:hover:not(.active) { color: rgba(255,255,255,0.6); }
+
+    /* Gradiente cyan debajo del subnav */
+    .header-stripe {
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+    }
 
     /* ── LAYOUT ── */
     .layout {
@@ -156,7 +189,7 @@
     /* ── CONTENT ── */
     .content { display: flex; flex-direction: column; gap: 1.25rem; }
 
-    /* ── HERO (historia) ── */
+    /* ── HERO ── */
     .hero {
       background: var(--bg-primary);
       border-radius: var(--card-radius);
@@ -190,12 +223,12 @@
 
     .hero h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 2rem;
+      font-size: 1.875rem;
       font-weight: 800;
-      line-height: 1.2;
+      line-height: 1.22;
       color: var(--text-primary);
       margin-bottom: 1.25rem;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.4px;
     }
 
     .hero p {
@@ -206,7 +239,7 @@
     }
 
     .hero-footer {
-      padding: 1.25rem 2.5rem;
+      padding: 1.125rem 2.5rem;
       border-top: 1px solid var(--border);
       background: var(--bg-secondary);
       display: flex;
@@ -248,7 +281,7 @@
     }
 
     .card-header {
-      padding: 1.5rem 1.75rem 0;
+      padding: 1.25rem 1.75rem 0;
     }
 
     .radar-grid {
@@ -258,14 +291,13 @@
     }
 
     .radar-item {
-      padding: 1.5rem 1.75rem;
+      padding: 1.25rem 1.75rem;
       border-right: 1px solid var(--border);
       border-top: 1px solid var(--border);
       transition: background 0.2s;
     }
 
     .radar-item:hover { background: var(--bg-secondary); }
-
     .radar-item:last-child { border-right: none; }
 
     .item-source {
@@ -282,18 +314,18 @@
     }
 
     .radar-item h3 {
-      font-size: 0.975rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--text-primary);
       line-height: 1.4;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
     }
 
     .radar-item p {
       font-size: 0.875rem;
       color: var(--text-secondary);
       line-height: 1.65;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.7rem;
     }
 
     .radar-item a {
@@ -348,18 +380,72 @@
     /* ── SIDEBAR ── */
     .sidebar {
       position: sticky;
-      top: 80px;
+      top: 100px;
       height: fit-content;
-      max-height: calc(100vh - 100px);
-      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* Dato destacado en sidebar */
+    .sidebar-dato {
+      background: var(--bg-header);
+      border-radius: var(--card-radius);
+      padding: 1.25rem;
+    }
+
+    .sidebar-dato .section-tag { color: var(--accent); margin-bottom: 0.75rem; }
+    .sidebar-dato .section-tag::before { background: var(--accent); }
+
+    .sidebar-dato-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin: 0.5rem 0 0.6rem;
+      letter-spacing: -1px;
+    }
+
+    .sidebar-dato-context {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.65;
+    }
+
+    /* Sin filtro en sidebar */
+    .sidebar-sinfiltro {
+      background: var(--bg-primary);
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 1.25rem;
+    }
+
+    .sidebar-sinfiltro-text {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    /* Archivo */
+    .sidebar-archive {
       background: var(--bg-primary);
       border-radius: var(--card-radius);
       border: 1px solid var(--border);
       padding: 1.25rem;
+      max-height: calc(100vh - 320px);
+      overflow-y: auto;
     }
 
+    .sidebar-archive::-webkit-scrollbar { width: 4px; }
+    .sidebar-archive::-webkit-scrollbar-track { background: transparent; }
+    .sidebar-archive::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
     .sidebar-title {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -447,10 +533,39 @@
     .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
     /* ── RESPONSIVE ── */
+    /* ── LOADING ── */
+    .loading {
+      text-align: center;
+      padding: 5rem 2rem;
+      color: var(--text-tertiary);
+      font-size: 0.9rem;
+    }
+
+    .loading-spinner {
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
       .layout { grid-template-columns: 1fr; }
-      .sidebar { position: relative; top: 0; max-height: none; display: none; }
-      .sidebar.open { display: block; }
+      .sidebar { position: relative; top: 0; display: none; flex-direction: row; flex-wrap: wrap; }
+      .sidebar.open { display: flex; }
+      .sidebar-dato, .sidebar-sinfiltro { flex: 1; min-width: 200px; }
+      .sidebar-archive { width: 100%; }
       .menu-btn { display: flex; }
       .header-date { display: none; }
     }
@@ -459,14 +574,16 @@
       .bottom-row { grid-template-columns: 1fr; }
       .radar-grid { grid-template-columns: 1fr; }
       .radar-item { border-right: none; }
-      .hero h2 { font-size: 1.6rem; }
-      .dato-number { font-size: 2.25rem; }
+      .hero h2 { font-size: 1.55rem; }
+      .sidebar-dato-number { font-size: 2rem; }
     }
 
     @media (max-width: 640px) {
       .layout { padding: 1rem; gap: 1rem; }
       .hero-body { padding: 1.5rem; }
       .hero-footer { padding: 1rem 1.5rem; flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+      .subnav-inner { padding: 0 1rem; }
+      .header-inner { padding: 0 1rem; }
     }
   </style>
 </head>
@@ -490,6 +607,17 @@
         </button>
       </div>
     </div>
+    <nav class="subnav" aria-label="Categorías">
+      <div class="subnav-inner">
+        <div class="subnav-item active" onclick="filterCategory(this, 'todo')">Todo</div>
+        <div class="subnav-item" onclick="filterCategory(this, 'ia')">IA</div>
+        <div class="subnav-item" onclick="filterCategory(this, 'startups')">Startups</div>
+        <div class="subnav-item" onclick="filterCategory(this, 'negocios')">Negocios</div>
+        <div class="subnav-item" onclick="filterCategory(this, 'cripto')">Cripto</div>
+        <div class="subnav-item" onclick="filterCategory(this, 'latam')">LATAM</div>
+      </div>
+    </nav>
+    <div class="header-stripe"></div>
   </header>
 
   <div class="layout">
@@ -501,8 +629,19 @@
     </main>
 
     <aside class="sidebar" id="sidebar">
-      <div class="sidebar-title">Archivo</div>
-      <div id="archive"></div>
+      <div class="sidebar-dato" id="sidebar-dato" style="display:none">
+        <div class="section-tag">El dato de hoy</div>
+        <div class="sidebar-dato-number" id="sidebar-dato-number"></div>
+        <div class="sidebar-dato-context" id="sidebar-dato-context"></div>
+      </div>
+      <div class="sidebar-sinfiltro" id="sidebar-sinfiltro" style="display:none">
+        <div class="section-tag">Sin filtro</div>
+        <div class="sidebar-sinfiltro-text" id="sidebar-sinfiltro-text"></div>
+      </div>
+      <div class="sidebar-archive">
+        <div class="sidebar-title">Archivo</div>
+        <div id="archive"></div>
+      </div>
     </aside>
   </div>
 
@@ -630,30 +769,27 @@
           </div>`;
       }
 
-      if (dato.numero || sin_filtro) {
-        html += '<div class="bottom-row">';
+      document.getElementById('newsletter-content').innerHTML = html;
 
-        if (dato.numero) {
-          html += `
-            <div class="dato-card">
-              <div class="section-tag">El dato de hoy</div>
-              <div class="dato-number">${esc(dato.numero)}</div>
-              <div class="dato-context">${esc(dato.contexto || '')}</div>
-            </div>`;
-        }
-
-        if (sin_filtro) {
-          html += `
-            <div class="sinfiltro-card">
-              <div class="section-tag">Sin filtro</div>
-              <div class="sinfiltro-text">${esc(sin_filtro)}</div>
-            </div>`;
-        }
-
-        html += '</div>';
+      // Populate sidebar dato + sin filtro
+      if (dato.numero) {
+        const sidebarDato = document.getElementById('sidebar-dato');
+        sidebarDato.style.display = 'block';
+        document.getElementById('sidebar-dato-number').textContent = dato.numero;
+        document.getElementById('sidebar-dato-context').textContent = dato.contexto || '';
       }
 
-      document.getElementById('newsletter-content').innerHTML = html;
+      if (sin_filtro) {
+        const sidebarSF = document.getElementById('sidebar-sinfiltro');
+        sidebarSF.style.display = 'block';
+        document.getElementById('sidebar-sinfiltro-text').textContent = sin_filtro;
+      }
+    }
+
+    function filterCategory(el, cat) {
+      document.querySelectorAll('.subnav-item').forEach(i => i.classList.remove('active'));
+      el.classList.add('active');
+      // Categoría es visual por ahora; en futuro puede filtrar el archivo
     }
 
     function buildArchive() {
