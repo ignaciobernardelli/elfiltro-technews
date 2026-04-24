@@ -1,11 +1,517 @@
 <!DOCTYPE html>
-   <html lang="es">
-   <head>
-     <meta charset="UTF-8">
-     <title>El Filtro — Archivo</title>
-   </head>
-   <body>
-     <h1>El Filtro</h1>
-     <p>Newsletter tech diario. Próximamente: archivo completo.</p>
-   </body>
-   </html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Newsletter tech diario para LATAM">
+  <title>El Filtro — Newsletter Tech Diario</title>
+  <style>
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-header: #0a0a0a;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-tertiary: #94a3b8;
+      --accent: #22d3ee;
+      --accent-dark: #0891b2;
+      --border: #e2e8f0;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-primary: #0f172a;
+        --bg-secondary: #1e293b;
+        --bg-header: #020617;
+        --text-primary: #f1f5f9;
+        --text-secondary: #cbd5e1;
+        --text-tertiary: #64748b;
+        --border: #334155;
+        --shadow: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    body.light-mode {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-header: #0a0a0a;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-tertiary: #94a3b8;
+      --border: #e2e8f0;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-header: #020617;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-tertiary: #64748b;
+      --border: #334155;
+      --shadow: rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* Header */
+    header {
+      background: var(--bg-header);
+      padding: 1.5rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+
+    .logo .dot {
+      color: var(--accent);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .theme-toggle {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.25rem;
+      color: #ffffff;
+    }
+
+    /* Layout */
+    .main-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    /* Newsletter principal */
+    .newsletter-viewer {
+      background: var(--bg-primary);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      min-height: 600px;
+    }
+
+    .newsletter-viewer iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 600px;
+      border: none;
+    }
+
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 400px;
+      color: var(--text-tertiary);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      background: var(--bg-primary);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+    }
+
+    .sidebar h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: ui-monospace, monospace;
+    }
+
+    .month-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .month-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.875rem;
+      user-select: none;
+    }
+
+    .month-header:hover {
+      color: var(--text-primary);
+    }
+
+    .month-toggle {
+      transition: transform 0.2s;
+    }
+
+    .month-toggle.collapsed {
+      transform: rotate(-90deg);
+    }
+
+    .newsletter-list {
+      padding-left: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .newsletter-list.collapsed {
+      display: none;
+    }
+
+    .newsletter-item {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+      margin-bottom: 0.25rem;
+    }
+
+    .newsletter-item:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+
+    .newsletter-item.active {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-dark);
+      font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: relative;
+        top: 0;
+        max-height: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .sidebar.mobile-visible {
+        display: block;
+        margin-bottom: 2rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .main-container {
+        padding: 1rem;
+      }
+
+      header {
+        padding: 1rem;
+      }
+
+      .logo h1 {
+        font-size: 1.25rem;
+      }
+    }
+
+    /* Scrollbar */
+    .sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb:hover {
+      background: var(--text-tertiary);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <h1>El Filtro <span class="dot">•</span></h1>
+      </div>
+      <div class="header-actions">
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+          <span class="theme-icon">🌙</span>
+        </button>
+        <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Menú">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <div class="newsletter-viewer">
+      <div class="loading" id="loading">Cargando newsletter...</div>
+      <iframe id="newsletter-frame" style="display: none;"></iframe>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+      <h2>// Archivo</h2>
+      <div id="archive"></div>
+    </aside>
+  </div>
+
+  <script>
+    const REPO_OWNER = 'ignaciobernardelli';
+    const REPO_NAME = 'elfiltro-technews';
+    const NEWSLETTERS_PATH = 'newsletters';
+
+    let newsletters = [];
+    let currentNewsletter = null;
+
+    // Theme management
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+    document.body.className = theme + '-mode';
+    updateThemeIcon(theme);
+
+    function toggleTheme() {
+      const current = document.body.className.includes('dark') ? 'dark' : 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.body.className = next + '-mode';
+      localStorage.setItem('theme', next);
+      updateThemeIcon(next);
+    }
+
+    function updateThemeIcon(theme) {
+      const icon = document.querySelector('.theme-icon');
+      icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('mobile-visible');
+    }
+
+    // Fetch newsletters from GitHub
+    async function fetchNewsletters() {
+      try {
+        const response = await fetch(
+          `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${NEWSLETTERS_PATH}`
+        );
+        
+        if (!response.ok) throw new Error('Failed to fetch newsletters');
+        
+        const files = await response.json();
+        
+        // Filter and sort newsletters
+        newsletters = files
+          .filter(file => file.name.endsWith('.html'))
+          .map(file => {
+            const match = file.name.match(/(\d{4})-(\d{2})-(\d{2})\.html/);
+            if (!match) return null;
+            
+            const [, year, month, day] = match;
+            return {
+              name: file.name,
+              path: file.path,
+              date: new Date(year, month - 1, day),
+              dateStr: `${day}/${month}/${year}`,
+              displayDate: new Date(year, month - 1, day).toLocaleDateString('es-AR', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+              })
+            };
+          })
+          .filter(n => n !== null)
+          .sort((a, b) => b.date - a.date);
+
+        if (newsletters.length > 0) {
+          loadNewsletter(newsletters[0]);
+          buildArchive();
+        } else {
+          document.getElementById('loading').textContent = 'No hay newsletters disponibles';
+        }
+      } catch (error) {
+        console.error('Error fetching newsletters:', error);
+        document.getElementById('loading').textContent = 'Error cargando newsletters';
+      }
+    }
+
+    // Load newsletter in iframe
+    function loadNewsletter(newsletter) {
+      currentNewsletter = newsletter;
+      const iframe = document.getElementById('newsletter-frame');
+      const loading = document.getElementById('loading');
+      
+      iframe.src = newsletter.name;
+      iframe.style.display = 'block';
+      loading.style.display = 'none';
+
+      // Update active state in sidebar
+      document.querySelectorAll('.newsletter-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      const activeItem = document.querySelector(`[data-newsletter="${newsletter.name}"]`);
+      if (activeItem) activeItem.classList.add('active');
+    }
+
+    // Build archive sidebar
+    function buildArchive() {
+      const archive = document.getElementById('archive');
+      
+      // Group by month
+      const grouped = {};
+      newsletters.forEach(newsletter => {
+        const monthKey = newsletter.date.toLocaleDateString('es-AR', { 
+          year: 'numeric', 
+          month: 'long' 
+        });
+        if (!grouped[monthKey]) grouped[monthKey] = [];
+        grouped[monthKey].push(newsletter);
+      });
+
+      // Build HTML
+      let html = '';
+      Object.entries(grouped).forEach(([month, items], index) => {
+        const isCollapsed = index > 0; // First month expanded, rest collapsed
+        html += `
+          <div class="month-group">
+            <div class="month-header" onclick="toggleMonth(this)">
+              <span>${month}</span>
+              <span class="month-toggle ${isCollapsed ? 'collapsed' : ''}">▼</span>
+            </div>
+            <div class="newsletter-list ${isCollapsed ? 'collapsed' : ''}">
+              ${items.map(newsletter => `
+                <a 
+                  href="#${newsletter.name}" 
+                  class="newsletter-item ${newsletter === currentNewsletter ? 'active' : ''}"
+                  data-newsletter="${newsletter.name}"
+                  onclick="loadNewsletterByName('${newsletter.name}'); return false;"
+                >
+                  ${newsletter.displayDate}
+                </a>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      archive.innerHTML = html;
+    }
+
+    function toggleMonth(header) {
+      const toggle = header.querySelector('.month-toggle');
+      const list = header.nextElementSibling;
+      
+      toggle.classList.toggle('collapsed');
+      list.classList.toggle('collapsed');
+    }
+
+    function loadNewsletterByName(name) {
+      const newsletter = newsletters.find(n => n.name === name);
+      if (newsletter) loadNewsletter(newsletter);
+      
+      // Close sidebar on mobile
+      if (window.innerWidth <= 1024) {
+        document.getElementById('sidebar').classList.remove('mobile-visible');
+      }
+    }
+
+    // Initialize
+    fetchNewsletters();
+
+    // Update theme on system preference change
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (!localStorage.getItem('theme')) {
+        const theme = e.matches ? 'dark' : 'light';
+        document.body.className = theme + '-mode';
+        updateThemeIcon(theme);
+      }
+    });
+  </script>
+</body>
+</html>
