@@ -427,7 +427,7 @@
       const iframe = document.getElementById('newsletter-frame');
       const loading = document.getElementById('loading');
       
-      iframe.src = newsletter.name;
+      iframe.src = 'newsletters/' + newsletter.name;
       iframe.style.display = 'block';
       loading.style.display = 'none';
 
