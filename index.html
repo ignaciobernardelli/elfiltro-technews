@@ -64,6 +64,7 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
       background: var(--bg-secondary);
       color: var(--text-primary);
+      line-height: 1.6;
       transition: background 0.3s, color 0.3s;
     }
 
@@ -87,8 +88,17 @@
 
     .logo {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .logo-label {
+      font-family: ui-monospace, monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
     }
 
     .logo h1 {
@@ -100,6 +110,12 @@
 
     .logo .dot {
       color: var(--accent);
+    }
+
+    .date-display {
+      font-size: 0.875rem;
+      color: var(--text-tertiary);
+      text-transform: capitalize;
     }
 
     .header-actions {
@@ -148,28 +164,133 @@
       padding: 2rem;
     }
 
-    /* Newsletter principal */
-    .newsletter-viewer {
+    /* Newsletter content */
+    .newsletter-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    section {
       background: var(--bg-primary);
+      padding: 2rem;
       border-radius: 16px;
       border: 1px solid var(--border);
-      overflow: hidden;
-      min-height: 600px;
+      transition: background 0.3s, border-color 0.3s;
     }
 
-    .newsletter-viewer iframe {
-      width: 100%;
-      height: 100%;
-      min-height: 600px;
-      border: none;
+    .section-label {
+      font-family: ui-monospace, monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-dark);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 1rem;
     }
 
-    .loading {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 400px;
-      color: var(--text-tertiary);
+    .historia h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .historia p {
+      font-size: 1.0625rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+
+    .historia .read-more {
+      display: inline-block;
+      background: var(--bg-header);
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+
+    .historia .read-more:hover {
+      transform: translateY(-2px);
+    }
+
+    .radar-item {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .radar-item:last-child {
+      border-bottom: none;
+    }
+
+    .source-badge {
+      display: inline-block;
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-dark);
+      font-family: ui-monospace, monospace;
+      font-size: 0.625rem;
+      font-weight: 700;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .radar-item h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .radar-item p {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+
+    .radar-item a {
+      font-size: 0.875rem;
+      color: var(--accent-dark);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .radar-item a:hover {
+      text-decoration: underline;
+    }
+
+    .dato-numero {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent-dark);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .dato-contexto {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .sin-filtro-content {
+      background: var(--bg-secondary);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-size: 1rem;
     }
 
     /* Sidebar */
@@ -241,6 +362,7 @@
       font-size: 0.875rem;
       transition: all 0.2s;
       margin-bottom: 0.25rem;
+      cursor: pointer;
     }
 
     .newsletter-item:hover {
@@ -252,6 +374,12 @@
       background: rgba(34, 211, 238, 0.1);
       color: var(--accent-dark);
       font-weight: 600;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-tertiary);
     }
 
     /* Responsive */
@@ -292,6 +420,14 @@
       .logo h1 {
         font-size: 1.25rem;
       }
+
+      section {
+        padding: 1.5rem;
+      }
+
+      .historia h2 {
+        font-size: 1.5rem;
+      }
     }
 
     /* Scrollbar */
@@ -317,7 +453,9 @@
   <header>
     <div class="header-content">
       <div class="logo">
+        <div class="logo-label">Newsletter tech diario</div>
         <h1>El Filtro <span class="dot">•</span></h1>
+        <div class="date-display" id="header-date"></div>
       </div>
       <div class="header-actions">
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
@@ -331,9 +469,8 @@
   </header>
 
   <div class="main-container">
-    <div class="newsletter-viewer">
-      <div class="loading" id="loading">Cargando newsletter...</div>
-      <iframe id="newsletter-frame" style="display: none;"></iframe>
+    <div class="newsletter-content" id="newsletter-content">
+      <div class="loading">Cargando newsletter...</div>
     </div>
 
     <aside class="sidebar" id="sidebar">
@@ -345,7 +482,7 @@
   <script>
     const REPO_OWNER = 'ignaciobernardelli';
     const REPO_NAME = 'elfiltro-technews';
-    const NEWSLETTERS_PATH = 'newsletters';
+    const DATA_PATH = 'data';
 
     let newsletters = [];
     let currentNewsletter = null;
@@ -379,7 +516,7 @@
     async function fetchNewsletters() {
       try {
         const response = await fetch(
-          `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${NEWSLETTERS_PATH}`
+          `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${DATA_PATH}`
         );
         
         if (!response.ok) throw new Error('Failed to fetch newsletters');
@@ -388,17 +525,18 @@
         
         // Filter and sort newsletters
         newsletters = files
-          .filter(file => file.name.endsWith('.html'))
+          .filter(file => file.name.endsWith('.json'))
           .map(file => {
-            const match = file.name.match(/(\d{4})-(\d{2})-(\d{2})\.html/);
+            const match = file.name.match(/(\d{4})-(\d{2})-(\d{2})\.json/);
             if (!match) return null;
             
             const [, year, month, day] = match;
             return {
               name: file.name,
               path: file.path,
+              download_url: file.download_url,
               date: new Date(year, month - 1, day),
-              dateStr: `${day}/${month}/${year}`,
+              dateStr: `${year}-${month}-${day}`,
               displayDate: new Date(year, month - 1, day).toLocaleDateString('es-AR', {
                 day: 'numeric',
                 month: 'short',
@@ -413,30 +551,111 @@
           loadNewsletter(newsletters[0]);
           buildArchive();
         } else {
-          document.getElementById('loading').textContent = 'No hay newsletters disponibles';
+          document.getElementById('newsletter-content').innerHTML = 
+            '<div class="loading">No hay newsletters disponibles</div>';
         }
       } catch (error) {
         console.error('Error fetching newsletters:', error);
-        document.getElementById('loading').textContent = 'Error cargando newsletters';
+        document.getElementById('newsletter-content').innerHTML = 
+          '<div class="loading">Error cargando newsletters</div>';
       }
     }
 
-    // Load newsletter in iframe
-    function loadNewsletter(newsletter) {
+    // Load newsletter JSON and render
+    async function loadNewsletter(newsletter) {
       currentNewsletter = newsletter;
-      const iframe = document.getElementById('newsletter-frame');
-      const loading = document.getElementById('loading');
       
-      iframe.src = 'newsletters/' + newsletter.name;
-      iframe.style.display = 'block';
-      loading.style.display = 'none';
+      try {
+        const response = await fetch(newsletter.download_url);
+        if (!response.ok) throw new Error('Failed to fetch newsletter data');
+        
+        const data = await response.json();
+        renderNewsletter(data);
+        
+        // Update header date
+        document.getElementById('header-date').textContent = data.dateDisplay || newsletter.displayDate;
+        
+        // Update active state in sidebar
+        document.querySelectorAll('.newsletter-item').forEach(item => {
+          item.classList.remove('active');
+        });
+        const activeItem = document.querySelector(`[data-newsletter="${newsletter.name}"]`);
+        if (activeItem) activeItem.classList.add('active');
+        
+      } catch (error) {
+        console.error('Error loading newsletter:', error);
+        document.getElementById('newsletter-content').innerHTML = 
+          '<div class="loading">Error cargando newsletter</div>';
+      }
+    }
 
-      // Update active state in sidebar
-      document.querySelectorAll('.newsletter-item').forEach(item => {
-        item.classList.remove('active');
-      });
-      const activeItem = document.querySelector(`[data-newsletter="${newsletter.name}"]`);
-      if (activeItem) activeItem.classList.add('active');
+    // Render newsletter content
+    function renderNewsletter(data) {
+      const container = document.getElementById('newsletter-content');
+      
+      const { historia = {}, radar = [], dato = {}, sin_filtro = '' } = data;
+      
+      let html = '';
+      
+      // Historia del día
+      if (historia.titulo) {
+        html += `
+          <section class="historia">
+            <div class="section-label">// La historia del día</div>
+            <h2>${escapeHtml(historia.titulo)}</h2>
+            ${historia.parrafo1 ? `<p>${escapeHtml(historia.parrafo1)}</p>` : ''}
+            ${historia.parrafo2 ? `<p>${escapeHtml(historia.parrafo2)}</p>` : ''}
+            ${historia.parrafo3 ? `<p>${escapeHtml(historia.parrafo3)}</p>` : ''}
+            ${historia.url ? `<a href="${escapeHtml(historia.url)}" class="read-more" target="_blank" rel="noopener">Leer en ${escapeHtml(historia.source || 'fuente')} →</a>` : ''}
+          </section>
+        `;
+      }
+      
+      // En el radar
+      if (radar.length > 0) {
+        html += `
+          <section>
+            <div class="section-label">// En el radar</div>
+            ${radar.map(item => `
+              <article class="radar-item">
+                ${item.source ? `<div class="source-badge">${escapeHtml(item.source)}</div>` : ''}
+                <h3>${escapeHtml(item.titulo || '')}</h3>
+                <p>${escapeHtml(item.resumen || '')}</p>
+                ${item.url ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">Leer más →</a>` : ''}
+              </article>
+            `).join('')}
+          </section>
+        `;
+      }
+      
+      // El dato
+      if (dato.numero) {
+        html += `
+          <section>
+            <div class="section-label">// El dato de hoy</div>
+            <div class="dato-numero">${escapeHtml(dato.numero)}</div>
+            <div class="dato-contexto">${escapeHtml(dato.contexto || '')}</div>
+          </section>
+        `;
+      }
+      
+      // Sin filtro
+      if (sin_filtro) {
+        html += `
+          <section>
+            <div class="section-label">// Sin filtro</div>
+            <div class="sin-filtro-content">${escapeHtml(sin_filtro)}</div>
+          </section>
+        `;
+      }
+      
+      container.innerHTML = html;
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
     }
 
     // Build archive sidebar
@@ -457,7 +676,7 @@
       // Build HTML
       let html = '';
       Object.entries(grouped).forEach(([month, items], index) => {
-        const isCollapsed = index > 0; // First month expanded, rest collapsed
+        const isCollapsed = index > 0;
         html += `
           <div class="month-group">
             <div class="month-header" onclick="toggleMonth(this)">
@@ -466,14 +685,13 @@
             </div>
             <div class="newsletter-list ${isCollapsed ? 'collapsed' : ''}">
               ${items.map(newsletter => `
-                <a 
-                  href="#${newsletter.name}" 
+                <div 
                   class="newsletter-item ${newsletter === currentNewsletter ? 'active' : ''}"
                   data-newsletter="${newsletter.name}"
-                  onclick="loadNewsletterByName('${newsletter.name}'); return false;"
+                  onclick="loadNewsletterByName('${newsletter.name}')"
                 >
                   ${newsletter.displayDate}
-                </a>
+                </div>
               `).join('')}
             </div>
           </div>
