@@ -132,45 +132,7 @@
 
     .menu-btn { display: none; }
 
-    /* ── SUBNAV CATEGORÍAS ── */
-    .subnav {
-      background: var(--bg-header);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .subnav::-webkit-scrollbar { display: none; }
-
-    .subnav-inner {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      gap: 0;
-    }
-
-    .subnav-item {
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: rgba(255,255,255,0.3);
-      padding: 0.55rem 0.875rem;
-      border-bottom: 2px solid transparent;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: color 0.15s;
-      user-select: none;
-    }
-
-    .subnav-item.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
-
-    .subnav-item:hover:not(.active) { color: rgba(255,255,255,0.6); }
-
-    /* Gradiente cyan debajo del subnav */
+    /* Gradiente cyan debajo del header */
     .header-stripe {
       height: 2px;
       background: linear-gradient(90deg, var(--accent), var(--accent-dark));
@@ -582,7 +544,6 @@
       .layout { padding: 1rem; gap: 1rem; }
       .hero-body { padding: 1.5rem; }
       .hero-footer { padding: 1rem 1.5rem; flex-direction: column; gap: 0.75rem; align-items: flex-start; }
-      .subnav-inner { padding: 0 1rem; }
       .header-inner { padding: 0 1rem; }
     }
   </style>
@@ -607,16 +568,7 @@
         </button>
       </div>
     </div>
-    <nav class="subnav" aria-label="Categorías">
-      <div class="subnav-inner">
-        <div class="subnav-item active" onclick="filterCategory(this, 'todo')">Todo</div>
-        <div class="subnav-item" onclick="filterCategory(this, 'ia')">IA</div>
-        <div class="subnav-item" onclick="filterCategory(this, 'startups')">Startups</div>
-        <div class="subnav-item" onclick="filterCategory(this, 'negocios')">Negocios</div>
-        <div class="subnav-item" onclick="filterCategory(this, 'cripto')">Cripto</div>
-        <div class="subnav-item" onclick="filterCategory(this, 'latam')">LATAM</div>
-      </div>
-    </nav>
+
     <div class="header-stripe"></div>
   </header>
 
@@ -784,12 +736,6 @@
         sidebarSF.style.display = 'block';
         document.getElementById('sidebar-sinfiltro-text').textContent = sin_filtro;
       }
-    }
-
-    function filterCategory(el, cat) {
-      document.querySelectorAll('.subnav-item').forEach(i => i.classList.remove('active'));
-      el.classList.add('active');
-      // Categoría es visual por ahora; en futuro puede filtrar el archivo
     }
 
     function buildArchive() {
