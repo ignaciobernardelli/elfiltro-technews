@@ -160,6 +160,15 @@
       animation: fadeUp 0.4s ease both;
     }
 
+    .hero-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-secondary);
+    }
+
     .hero-body { padding: 2.5rem; }
 
     .section-tag {
@@ -261,6 +270,15 @@
 
     .radar-item:hover { background: var(--bg-secondary); }
     .radar-item:last-child { border-right: none; }
+
+    .radar-thumb {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+      background: var(--bg-secondary);
+    }
 
     .item-source {
       font-size: 0.65rem;
@@ -687,6 +705,7 @@
       if (historia.titulo) {
         html += `
           <article class="hero">
+            ${historia.imageUrl ? `<img class="hero-img" src="${esc(historia.imageUrl)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
             <div class="hero-body">
               <div class="section-tag">La historia del día</div>
               <h2>${esc(historia.titulo)}</h2>
@@ -712,6 +731,7 @@
             <div class="radar-grid">
               ${radar.map(item => `
                 <div class="radar-item">
+                  ${item.imageUrl ? `<img class="radar-thumb" src="${esc(item.imageUrl)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
                   ${item.source ? `<span class="item-source">${esc(item.source)}</span>` : ''}
                   <h3>${esc(item.titulo || '')}</h3>
                   <p>${esc(item.resumen || '')}</p>
